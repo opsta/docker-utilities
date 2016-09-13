@@ -73,4 +73,8 @@ RUN mkdir -p /etc/ansible && \
     PYTHON_LIB_PATH=$(echo 'import os; from ansible.modules.core.cloud.docker import docker_container; print os.path.dirname(docker_container.__file__);' | python -) && \
     rm $PYTHON_LIB_PATH/docker_container.pyc && \
     wget -O $PYTHON_LIB_PATH/docker_container.py \
-      https://raw.githubusercontent.com/ansible/ansible-modules-core/de0122fdaf5975cf2df87fc36b059c74032396e6/cloud/docker/docker_container.py
+      https://raw.githubusercontent.com/ansible/ansible-modules-core/de0122fdaf5975cf2df87fc36b059c74032396e6/cloud/docker/docker_container.py && \
+    PYTHON_LIB_PATH=$(echo 'import os; from ansible.modules.core.cloud.docker import docker_image; print os.path.dirname(docker_image.__file__);' | python -) && \
+    rm "$PYTHON_LIB_PATH/docker_image.pyc" && \
+    wget -O "$PYTHON_LIB_PATH/docker_image.py" \
+      https://raw.githubusercontent.com/ansible/ansible-modules-core/0358dee0950645ccedd9f6dd88393502acffb0a0/cloud/docker/docker_image.py
