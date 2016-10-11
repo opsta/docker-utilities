@@ -21,7 +21,8 @@ ENV ANSIBLE_HOST_KEY_CHECKING=False \
     DOCKER_ENGINE_VERSION=1.12.1 \
     DOCKER_COMPOSE_VERSION=1.8.1 \
     DOCKER_MACHINE_VERSION=0.8.2 \
-    OPSTA_PLAYBOOK_COMMIT_ID=1042d06f8803ae49ba152c0f7cb8c7d623d5ff21
+    OPSTA_PLAYBOOK_ANSIBLE_COMMIT_ID=ddec77f8ba22c65f65537a2574b609c4a840e398 \
+    OPSTA_PLAYBOOK_PYTHON_COMMIT_ID=1042d06f8803ae49ba152c0f7cb8c7d623d5ff21
 RUN [ -n "$APT_CACHER_NG" ] && \
       echo "Acquire::http::Proxy \"$APT_CACHER_NG\";" \
       > /etc/apt/apt.conf.d/11proxy || true; \
@@ -45,10 +46,10 @@ $(echo $DEVPI_SERVER | awk -F/ '{print $3}' | awk -F: '{print $1}')\n\
     chmod +x /usr/local/bin/docker-compose /usr/local/bin/docker-machine && \
     mkdir -p /etc/ansible/requirements /etc/ansible/scripts && \
     wget -O /etc/ansible/requirements/python-requirements.txt \
-      https://raw.githubusercontent.com/opsta/opsta-playbook/$OPSTA_PLAYBOOK_COMMIT_ID/requirements/python-requirements.txt && \
+      https://raw.githubusercontent.com/opsta/opsta-playbook/$OPSTA_PLAYBOOK_PYTHON_COMMIT_ID/requirements/python-requirements.txt && \
     cd /etc/ansible/scripts && \
     curl https://bootstrap.pypa.io/get-pip.py | python && \
-    curl https://raw.githubusercontent.com/opsta/opsta-playbook/$OPSTA_PLAYBOOK_COMMIT_ID/scripts/install-ansible.sh | bash && \
+    curl https://raw.githubusercontent.com/opsta/opsta-playbook/$OPSTA_PLAYBOOK_ANSIBLE_COMMIT_ID/scripts/install-ansible.sh | bash && \
     apt-get remove --purge --auto-remove -y \
       build-essential ifupdown iproute2 isc-dhcp-client isc-dhcp-common \
       libatm1 libisc-export160 libmnl0 libxtables11 manpages netbase \
